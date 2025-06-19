@@ -1,16 +1,16 @@
-name: Headless Navegador - Enviar Data
+name: Headless Navegador - Enviar Tempo
 
 on:
   schedule:
-    - cron: '*/2 * * * *'  # Executa automaticamente a cada 2 minutos (UTC)
-  workflow_dispatch:       # Também permite execução manual
+    - cron: '*/1 * * * *'  # Executa a cada 1 minuto
+  workflow_dispatch:       # Permite execução manual também
 
 jobs:
   enviar_data_php:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Clonar repositório
+      - name: Clonar o repositório
         uses: actions/checkout@v4
 
       - name: Instalar Node.js
@@ -18,10 +18,10 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Instalar Playwright com dependências
+      - name: Instalar Playwright
         run: |
           npm install -D playwright
           npx playwright install --with-deps
 
-      - name: Executar script headless
+      - name: Executar navegador headless e registrar resposta
         run: node bot.js
